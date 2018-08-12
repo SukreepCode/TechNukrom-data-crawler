@@ -1,10 +1,9 @@
 {
     "rss-sources": [
-      "https: //dev.mildronize.com/rss.xml",
-      "https: //news.ycombinator.com/rss"
+      "https://dev.mildronize.com/rss.xml",
+      "https://medium.com/feed/@mildronize"
     ],
     "medium-sources":[
-      
+
     ]
   }
-  
