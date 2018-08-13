@@ -1,9 +1,5 @@
 {
     "rss-sources": [
-      "https://dev.mildronize.com/rss.xml",
-      "https://medium.com/feed/@mildronize"
-    ],
-    "medium-sources":[
-
+        "https://dev.mildronize.com/rss.xml"
     ]
-  }
+}
