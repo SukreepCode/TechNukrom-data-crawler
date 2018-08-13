@@ -2,7 +2,7 @@
 
 """Main module."""
 
-import xmltodict
+# import xmltodict
 # import requests
 import feedparser
 import hashlib
