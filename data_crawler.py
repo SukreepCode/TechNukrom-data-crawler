@@ -41,7 +41,7 @@ def feed_extractor():
                 result[current_item]['content'] = entry['content'][0]['value']
                 result[current_item]['published'] = datetime.fromtimestamp(mktime(entry['published_parsed']))
                 result[current_item]['updated'] = datetime.fromtimestamp(mktime(entry['updated_parsed']))
-                result[current_item]['created'] = datetime.datetime.now()
+                result[current_item]['created'] = datetime.now()
                 result[current_item]['id'] = entry['id']
                 result[current_item]['link'] = entry['link']
                 result[current_item]['tags'] = []
