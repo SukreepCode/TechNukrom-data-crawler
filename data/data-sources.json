@@ -1,5 +1,9 @@
 {
     "rss-sources": [
-        "https://dev.mildronize.com/rss.xml"
+        "https://dev.mildronize.com/rss.xml",
+        "http://www.somkiat.cc/feed/",
+        "http://www.artit-k.com/feed/",
+        "https://arnondora.in.th/rss.xml",
+        "http://www.kamonway.com/feed/"
     ]
 }
