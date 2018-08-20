@@ -58,7 +58,13 @@ def feed_extractor():
                     result[current_item]['author'] = entry['author']
                 else:
                     result[current_item]['author'] = domain
-                result[current_item]['content'] = entry['content'][0]['value']
+
+                if 'content' in entry:
+                    result[current_item]['content'] = entry['content'][0]['value']
+
+                if 'summary' in entry:
+                    result[current_item]['content'] = entry['summary']
+
 
                 if 'updated_parsed' in entry:
                     result[current_item]['updated'] = datetime.fromtimestamp(mktime(entry['updated_parsed']))
@@ -78,6 +84,7 @@ def feed_extractor():
 
 def data_crawler():
     IS_SKIP_DUPLICATE = True
+    DUMMY_MODE = False
 
     db = firestore.init_env()
     collection_name = u'posts'
@@ -92,10 +99,12 @@ def data_crawler():
     feeds = feed_extractor()
     for feed in feeds:
         if not IS_SKIP_DUPLICATE:
-            doc_ref.document(feed['hash_id']).set(feed)
+            if not DUMMY_MODE:
+                doc_ref.document(feed['hash_id']).set(feed)
             print("DONE: "+ feed['title'])
         elif feed['hash_id'] not in available_feeds:
-            doc_ref.document(feed['hash_id']).set(feed)
+            if not DUMMY_MODE:
+                doc_ref.document(feed['hash_id']).set(feed)
             print("DONE: "+ feed['title'])
         else:
             print("SKIP: "+ feed['title'])
