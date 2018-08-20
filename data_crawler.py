@@ -52,18 +52,20 @@ def feed_extractor():
                 current_item = len(result)-1
                 result[current_item]['site_name'] = d.feed['title']
                 result[current_item]['rss_link'] = d.feed['link']
-                pprint(entry)
+                # pprint(entry)
                 result[current_item]['title'] = entry['title']
                 if 'author' in entry:
                     result[current_item]['author'] = entry['author']
                 else:
                     result[current_item]['author'] = domain
                 result[current_item]['content'] = entry['content'][0]['value']
-                result[current_item]['published'] = datetime.fromtimestamp(mktime(entry['published_parsed']))
+
                 if 'updated_parsed' in entry:
                     result[current_item]['updated'] = datetime.fromtimestamp(mktime(entry['updated_parsed']))
-                else:
-                    result[current_item]['updated'] = result[current_item]['published']
+
+                if 'published_parsed' in entry:
+                    result[current_item]['published'] = datetime.fromtimestamp(mktime(entry['published_parsed']))
+
                 result[current_item]['created'] = datetime.now()
                 result[current_item]['id'] = entry['id']
                 result[current_item]['link'] = entry['link']
@@ -75,6 +77,8 @@ def feed_extractor():
     return result
 
 def data_crawler():
+    IS_SKIP_DUPLICATE = True
+
     db = firestore.init_env()
     collection_name = u'posts'
     doc_ref = db.collection(collection_name)
@@ -87,7 +91,10 @@ def data_crawler():
 
     feeds = feed_extractor()
     for feed in feeds:
-        if feed['hash_id'] not in available_feeds:
+        if not IS_SKIP_DUPLICATE:
+            doc_ref.document(feed['hash_id']).set(feed)
+            print("DONE: "+ feed['title'])
+        elif feed['hash_id'] not in available_feeds:
             doc_ref.document(feed['hash_id']).set(feed)
             print("DONE: "+ feed['title'])
         else:
