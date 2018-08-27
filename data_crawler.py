@@ -106,8 +106,8 @@ def data_crawler():
             if not DUMMY_MODE:
                 doc_ref.document(feed['hash_id']).set(feed)
             print("DONE: "+ feed['title'])
-        else:
-            print("SKIP: "+ feed['title'])
+        # else:
+        #     print("SKIP: "+ feed['title'])
 
 data_crawler()
 
