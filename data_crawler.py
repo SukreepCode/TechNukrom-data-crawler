@@ -84,9 +84,14 @@ def feed_extractor():
 
 def data_crawler():
     IS_SKIP_DUPLICATE = True
-    DUMMY_MODE = False
+    IS_DUMMY_MODE = True
+    IS_PRODUCTION = True
 
-    db = firestore.init_env()
+    if IS_PRODUCTION:
+        db = firestore.init_env()
+    else:
+        db = firestore.init()
+
     collection_name = u'posts'
     doc_ref = db.collection(collection_name)
 
@@ -99,11 +104,11 @@ def data_crawler():
     feeds = feed_extractor()
     for feed in feeds:
         if not IS_SKIP_DUPLICATE:
-            if not DUMMY_MODE:
+            if not IS_DUMMY_MODE:
                 doc_ref.document(feed['hash_id']).set(feed)
             print("DONE: "+ feed['title'])
         elif feed['hash_id'] not in available_feeds:
-            if not DUMMY_MODE:
+            if not IS_DUMMY_MODE:
                 doc_ref.document(feed['hash_id']).set(feed)
             print("DONE: "+ feed['title'])
         # else:
