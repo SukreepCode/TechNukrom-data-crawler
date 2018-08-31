@@ -84,7 +84,7 @@ def feed_extractor():
 
 def data_crawler():
     IS_SKIP_DUPLICATE = True
-    IS_DUMMY_MODE = True
+    IS_DUMMY_MODE = False
     IS_PRODUCTION = True
 
     if IS_PRODUCTION:
