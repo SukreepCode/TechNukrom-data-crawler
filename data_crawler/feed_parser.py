@@ -84,7 +84,7 @@ def feed_extractor(source):
             result['generated_tags'] = tags_generator(result['tags'])
             result['generated_tags'].extend(tags_generator_from_text(result['title']))
             result['generated_tags'] = tags_finalize(result['generated_tags'])
-            print(result['generated_tags'])
+            # print(result['generated_tags'])
 
         lang = ''
         try:

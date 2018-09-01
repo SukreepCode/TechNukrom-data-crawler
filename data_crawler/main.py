@@ -14,6 +14,12 @@ def data_crawler():
 
     IS_INIT_STAT = True
 
+    print("Run with stat")
+    print("{}: {}".format("IS_DUMMY_MODE",IS_DUMMY_MODE))
+    print("{}: {}".format("IS_SKIP_DUPLICATE",IS_SKIP_DUPLICATE))
+    print("{}: {}".format("IS_PRODUCTION",IS_PRODUCTION))
+    print("{}: {}".format("IS_INIT_STAT",IS_INIT_STAT))
+
     if IS_PRODUCTION:
         db = firestore.init_env()
     else:
