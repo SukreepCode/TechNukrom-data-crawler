@@ -20,3 +20,16 @@ pip install pipenv
 pipenv shell
 pipenv install -r requirements.txt
 ```
+
+## Run
+```
+pipenv shell
+pipenv run init
+pipenv run init-dev
+technukrom_start
+```
+
+## pytest + watchdog (`ptw`)
+```
+pipenv run dev
+```

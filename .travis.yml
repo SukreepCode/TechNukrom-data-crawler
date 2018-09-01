@@ -7,8 +7,10 @@ python:
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
     - pip install pipenv
-    - pipenv install -r requirements.txt
+    - pipenv run init
+    - pipenv run init-dev
 
 # Command to run tests, e.g. python setup.py test
-script: python data_crawler.py
-
+script:
+    - pipenv run test
+    - pipenv run start
