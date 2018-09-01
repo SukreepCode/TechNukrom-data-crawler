@@ -13,4 +13,4 @@ install:
 # Command to run tests, e.g. python setup.py test
 script:
     - pipenv run test
-    - pipenv run start
+    - pipenv run start --production

@@ -6,13 +6,13 @@ from pprint import pprint
 from data_crawler import firestore
 from data_crawler import feed_parser
 
-def data_crawler():
-    IS_DUMMY_MODE = False
-
+def data_crawler(prouction):
+    IS_DUMMY_MODE = False         # No act with DB
     IS_SKIP_DUPLICATE = False
-    IS_PRODUCTION = True
-
+    IS_PRODUCTION = prouction
     IS_INIT_STAT = True
+
+    # TODO: Incremental mode
 
     print("Run with stat")
     print("{}: {}".format("IS_DUMMY_MODE",IS_DUMMY_MODE))
@@ -36,18 +36,20 @@ def data_crawler():
     for doc in docs:
         available_feeds.append(doc.id)
 
-    for source in feed_parser.get_all_sources():
-        feed = feed_parser.feed_extractor(source)
-        if not IS_SKIP_DUPLICATE:
-            if not IS_DUMMY_MODE:
-                doc_ref.document(feed['hash_id']).set(feed)
-            # print("DONE: "+ feed['title'])
-        elif feed['hash_id'] not in available_feeds:
-            if not IS_DUMMY_MODE:
-                doc_ref.document(feed['hash_id']).set(feed)
-            # print("DONE: "+ feed['title'])
-        # else:
-        #     print("SKIP: "+ feed['title'])
+    sources = feed_parser.get_all_sources()
+    for source in sources:
+        feeds = feed_parser.feed_extractor(source)
+        for feed in feeds:
+            if not IS_SKIP_DUPLICATE:
+                if not IS_DUMMY_MODE:
+                    doc_ref.document(feed['hash_id']).set(feed)
+                # print("DONE: "+ feed['title'])
+            elif feed['hash_id'] not in available_feeds:
+                if not IS_DUMMY_MODE:
+                    doc_ref.document(feed['hash_id']).set(feed)
+                # print("DONE: "+ feed['title'])
+            # else:
+            #     print("SKIP: "+ feed['title'])
 
 
     # stat count all tags
@@ -76,6 +78,21 @@ def data_crawler():
 
         print("Done in Init counting tags")
 
+    # other stats
+    stats = {}
+    stats['num_thai_posts'] = 0
+    stats['num_all_posts'] = 0
+    docs = db.collection(post_collection).get()
+    for doc in docs:
+        data = doc.to_dict()
+        if 'lang' in data:
+            if data['lang'] == 'th':
+                stats['num_post_thai'] = stats['num_post_thai'] + 1
+        stats['total_post'] = stats['total_post'] + 1
+
+    stats['num_sources'] = len(sources)
+    if not IS_DUMMY_MODE:
+        db.collection(u'stats').document("post").set(stats)
     print("Done all jobs")
 
 
