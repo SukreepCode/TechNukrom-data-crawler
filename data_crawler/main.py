@@ -29,6 +29,7 @@ def data_crawler(prouction):
     doc_ref = db.collection(post_collection)
 
     print("Starting crawler")
+    print("Loading: ")
 
     # get all documents
     docs = db.collection(post_collection).get()
@@ -44,12 +45,14 @@ def data_crawler(prouction):
                 if not IS_DUMMY_MODE:
                     doc_ref.document(feed['hash_id']).set(feed)
                 # print("DONE: "+ feed['title'])
+                print('.', end='')
             elif feed['hash_id'] not in available_feeds:
                 if not IS_DUMMY_MODE:
                     doc_ref.document(feed['hash_id']).set(feed)
                 # print("DONE: "+ feed['title'])
-            # else:
-            #     print("SKIP: "+ feed['title'])
+                print('.', end='')
+            else:
+                print('!', end='') #skip
 
 
     # stat count all tags
@@ -58,12 +61,14 @@ def data_crawler(prouction):
 
     if IS_INIT_STAT:
         print("Start for Init stat")
+        print("Loading: ")
         docs = db.collection(post_collection).get()
         stat_tags = {}
         for doc in docs:
             data = doc.to_dict()
             if 'generated_tags' in data:
                 # print(data['generated_tags'])
+                print('.', end='')
                 for tag in data['generated_tags']:
                     if tag in stat_tags:
                         stat_tags[tag] = stat_tags[tag] + 1
@@ -73,18 +78,22 @@ def data_crawler(prouction):
         doc_ref_stat_tags = db.collection(u'stat_num_tags')
         for key, value in stat_tags.items():
             # print("Update tag: {}".format(key))
+            print('.', end='')
             if not IS_DUMMY_MODE:
                 doc_ref_stat_tags.document(key).set({'num': value})
 
         print("Done in Init counting tags")
 
     # other stats
+    print("Starting for other stats")
+    print("Loading: ")
     stats = {}
     stats['num_thai_posts'] = 0
     stats['num_all_posts'] = 0
     docs = db.collection(post_collection).get()
     for doc in docs:
         data = doc.to_dict()
+        print('.', end='')
         if 'lang' in data:
             if data['lang'] == 'th':
                 stats['num_post_thai'] = stats['num_post_thai'] + 1
