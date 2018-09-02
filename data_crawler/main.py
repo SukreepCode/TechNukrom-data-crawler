@@ -44,15 +44,15 @@ def data_crawler(prouction):
             if not IS_SKIP_DUPLICATE:
                 if not IS_DUMMY_MODE:
                     doc_ref.document(feed['hash_id']).set(feed)
-                # print("DONE: "+ feed['title'])
-                print('.', end='')
+                print("ADDED: "+ feed['title'])
+                # print('.', end='')
             elif feed['hash_id'] not in available_feeds:
                 if not IS_DUMMY_MODE:
                     doc_ref.document(feed['hash_id']).set(feed)
-                # print("DONE: "+ feed['title'])
-                print('.', end='')
-            else:
-                print('!', end='') #skip
+                print("ADDED: "+ feed['title'])
+                # print('.', end='')
+            # else:
+            #     print('!', end='') #skip
 
 
     # stat count all tags
