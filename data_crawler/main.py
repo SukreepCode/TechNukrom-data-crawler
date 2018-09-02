@@ -8,7 +8,7 @@ from data_crawler import feed_parser
 
 def data_crawler(prouction):
     IS_DUMMY_MODE = False         # No act with DB
-    IS_SKIP_DUPLICATE = False
+    IS_SKIP_DUPLICATE = True
     IS_PRODUCTION = prouction
     IS_INIT_STAT = False
 
@@ -51,8 +51,8 @@ def data_crawler(prouction):
                     doc_ref.document(feed['hash_id']).set(feed)
                 print("ADDED: "+ feed['title'])
                 # print('.', end='')
-            # else:
-            #     print('!', end='') #skip
+            else:
+                print('!') #skip
 
 
     # stat count all tags
@@ -85,23 +85,23 @@ def data_crawler(prouction):
         print("Done in Init counting tags")
 
     # other stats
-    print("Starting for other stats")
-    print("Loading: ")
-    stats = {}
-    stats['num_thai_posts'] = 0
-    stats['num_all_posts'] = 0
-    docs = db.collection(post_collection).get()
-    for doc in docs:
-        data = doc.to_dict()
-        print('.', end='')
-        if 'lang' in data:
-            if data['lang'] == 'th':
-                stats['num_post_thai'] = stats['num_post_thai'] + 1
-        stats['total_post'] = stats['total_post'] + 1
+    # print("Starting for other stats")
+    # print("Loading: ")
+    # stats = {}
+    # stats['num_thai_posts'] = 0
+    # stats['num_all_posts'] = 0
+    # docs = db.collection(post_collection).get()
+    # for doc in docs:
+    #     data = doc.to_dict()
+    #     print('.', end='')
+    #     if 'lang' in data:
+    #         if data['lang'] == 'th':
+    #             stats['num_post_thai'] = stats['num_post_thai'] + 1
+    #     stats['total_post'] = stats['total_post'] + 1
 
-    stats['num_sources'] = len(sources)
-    if not IS_DUMMY_MODE:
-        db.collection(u'stats').document("post").set(stats)
+    # stats['num_sources'] = len(sources)
+    # if not IS_DUMMY_MODE:
+    #     db.collection(u'stats').document("post").set(stats)
     print("Done all jobs")
 
 
