@@ -28,7 +28,8 @@ setup(
                  'data_crawler'},
     entry_points={
         'console_scripts': [
-            'technukrom_start=data_crawler.cli:main'
+            'technukrom_start=data_crawler.cli.main:main',
+            'technukrom_stat=data_crawler.cli.stat:main'
         ]
     },
     include_package_data=True,
