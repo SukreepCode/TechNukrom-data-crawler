@@ -10,7 +10,7 @@ def data_crawler(prouction):
     IS_DUMMY_MODE = False         # No act with DB
     IS_SKIP_DUPLICATE = False
     IS_PRODUCTION = prouction
-    IS_INIT_STAT = True
+    IS_INIT_STAT = False
 
     # TODO: Incremental mode
 

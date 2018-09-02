@@ -34,6 +34,6 @@ setup(
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
-    test_suite='pytest',
+    test_suite='tests',
     tests_require=test_requirements
 )
