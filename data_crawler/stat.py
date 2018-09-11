@@ -35,7 +35,6 @@ def init_stat(production):
     for doc in docs:
         data = doc.to_dict()
         if 'generated_tags' in data:
-            # print(data['generated_tags'])
             print_random()
             for tag in data['generated_tags']:
                 if tag in stat_tags:
@@ -43,7 +42,7 @@ def init_stat(production):
                 else:
                     stat_tags[tag] = 1
         if 'generated_lang' in data:
-            print('X', end='')
+            # print('X', end='')
             if data['generated_lang'] == 'th':
                 stats['num_thai_posts'] = stats['num_thai_posts'] + 1
 
@@ -56,7 +55,7 @@ def init_stat(production):
     keys = list(stat_tags.keys())
     print(keys)
     for key in keys:
-        if stat_tags[key].isnumeric() :
+        if str(stat_tags[key]).isnumeric() :
             print("Remove: {}".format(key))
             del(stat_tags[key])
 
