@@ -18,7 +18,12 @@
         "https://oatrice.wordpress.com/feed/",
         "https://igokuz.com/feed",
         "http://aeronz.com/feed/",
-        "https://thep.blogspot.com/feeds/posts/default"
+        "https://thep.blogspot.com/feeds/posts/default",
+        "https://nuuneoi.com/blog/rssfeed.php",
+        "http://techcomputi.blogspot.com/feeds/posts/default?alt=rss",
+        "http://compezz.blogspot.com/feeds/posts/default?alt=rss",
+        "http://shuwernpi.blogspot.com/feeds/posts/default?alt=rss",
+        "https://tinstudio.weebly.com/1/feed"
     ],
     "medium-sources": [
         "near.chayaporn",
@@ -187,6 +192,8 @@
         "thanathornkrobsanit",
         "anontawong",
         "tanapoln",
-        "mworldmyworld"
+        "mworldmyworld",
+        "Do_Nutchasan",
+        "sydsiravit"
     ]
 }
