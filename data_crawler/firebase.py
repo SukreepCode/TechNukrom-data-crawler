@@ -25,10 +25,11 @@ def get_cerd(env=True):
         cred = credentials.Certificate('firebase-service-key.json')
     return cred
 
-def init_firestore(env=True):
-    firebase_admin.initialize_app(get_cerd(env), name ="firestore")
-    return db_firestore.client()
-
 def init_firebase(env=True):
-    firebase_admin.initialize_app(get_cerd(env), { 'databaseURL': 'https://technukrom.firebaseio.com'})
-    return db_firebase
+    firebase_admin.initialize_app(get_cerd(env),
+        options={ 'databaseURL': 'https://technukrom.firebaseio.com'
+        })
+    return {
+        'firebase': db_firebase,
+        'firestore': db_firestore.client()
+    }

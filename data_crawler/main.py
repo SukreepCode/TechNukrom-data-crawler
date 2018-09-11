@@ -16,16 +16,16 @@ def data_crawler(production):
     print("{}: {}".format("IS_DUMMY_MODE",IS_DUMMY_MODE))
     print("{}: {}".format("IS_SKIP_DUPLICATE",IS_SKIP_DUPLICATE))
 
-    db = firebase.init_firestore(production)
+    db = firebase.init_firebase(production)
 
     post_collection = u'posts'
-    doc_ref = db.collection(post_collection)
+    doc_ref = db['firestore'].collection(post_collection)
 
     print("Starting crawler")
     print("Loading: ")
 
     # get all documents
-    docs = db.collection(post_collection).get()
+    docs = db['firestore'].collection(post_collection).get()
     available_feeds = []
     for doc in docs:
         available_feeds.append(doc.id)
@@ -45,7 +45,7 @@ def data_crawler(production):
                 print("ADDED: "+ feed['title'])
                 # print('.', end='')
             else:
-                print('!') #skip
+                print('!', end='') #skip
 
 
     print("Finished crawl!")

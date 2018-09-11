@@ -1,16 +1,30 @@
 
 from data_crawler import firebase
 from data_crawler import feed_parser
+import random
 
 POST_COLLECTION = "posts"
+
+def isInt(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+def print_random():
+    P = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    i = random.randint(0, len(P) - 1)
+    print(P[i])
 
 def main(production):
     print("hey")
     init_stat(production)
 
 def init_stat(production):
-    db_firebase = firebase.init_firebase(production)
-    db_firestore = firebase.init_firestore(production)
+    db = firebase.init_firebase(production)
+    db_firebase = db['firebase']
+    db_firestore = db['firestore']
     print("Start for Init stat")
     print("Loading: ")
     docs = db_firestore.collection(POST_COLLECTION).get()
@@ -22,7 +36,7 @@ def init_stat(production):
         data = doc.to_dict()
         if 'generated_tags' in data:
             # print(data['generated_tags'])
-            print(data['generated_tags'])
+            print_random()
             for tag in data['generated_tags']:
                 if tag in stat_tags:
                     stat_tags[tag] = stat_tags[tag] + 1
@@ -34,6 +48,18 @@ def init_stat(production):
                 stats['num_thai_posts'] = stats['num_thai_posts'] + 1
 
         stats['num_all_posts'] = stats['num_all_posts'] + 1
+
+    IGNORE_LIST = ['to','in', 'at','an', 'ep', 'the' ,'part' ,'for','and', 'with']
+    for ignore in IGNORE_LIST:
+        del(stat_tags[ignore])
+
+    keys = list(stat_tags.keys())
+    print(keys)
+    for key in keys:
+        if stat_tags[key].isnumeric() :
+            print("Remove: {}".format(key))
+            del(stat_tags[key])
+
 
     print("Done in counting")
 
