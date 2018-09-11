@@ -55,7 +55,7 @@ def init_stat(production):
     keys = list(stat_tags.keys())
     print(keys)
     for key in keys:
-        if str(stat_tags[key]).isnumeric() :
+        if str(key).isnumeric() :
             print("Remove: {}".format(key))
             del(stat_tags[key])
 
