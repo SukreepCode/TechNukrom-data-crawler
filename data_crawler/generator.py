@@ -1,7 +1,7 @@
 
 import re
 
-DELIMITERS = '!@#$%^&*()_+-=\"\'[]\{\}|\\/,.; '
+DELIMITERS = r'!@#$%^&*()_+-=\"\'[]\{\}|\\/,.; '
 
 def split_delimiter(tag):
     # http://code.activestate.com/recipes/577616-split-strings-w-multiple-separators/
